@@ -1,5 +1,5 @@
 package com.fedorbaggins.myseabattle.game;
 
 
-public class Main {
+public class Game {
 }
