@@ -81,11 +81,6 @@ public class Utils {
                 if (ship.getSizeOfShip() == 2) field[ship.getPositionX() + i][ship.getPositionY()] = Cell.SHIP;
                 if (ship.getSizeOfShip() == 3) field[ship.getPositionX() + i][ship.getPositionY()] = Cell.SHIP;
                 if (ship.getSizeOfShip() == 4) field[ship.getPositionX() + i][ship.getPositionY()] = Cell.SHIP;
-                if (i == ship.getSizeOfShip()) {
-                    ship.setSternX(ship.getPositionX() + i);
-                    ship.setSternX(ship.getPositionY());
-
-                }
             }
             Utils.setAreaShip(ship, field);
         } else if (!ship.isHorizontalPosition()) {
@@ -94,11 +89,6 @@ public class Utils {
                 if (ship.getSizeOfShip() == 2) field[ship.getPositionX()][ship.getPositionY() + i] = Cell.SHIP;
                 if (ship.getSizeOfShip() == 3) field[ship.getPositionX()][ship.getPositionY() + i] = Cell.SHIP;
                 if (ship.getSizeOfShip() == 4) field[ship.getPositionX()][ship.getPositionY() + i] = Cell.SHIP;
-                if (i == ship.getSizeOfShip()) {
-                    ship.setSternY(ship.getPositionY() + i);
-                    ship.setSternX(ship.getPositionX());
-
-                }
             }
 
             Utils.setAreaShip(ship, field);

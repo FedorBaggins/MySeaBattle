@@ -15,6 +15,17 @@ public class Ship {
         this.positionX = X;
         this.positionY = Y;
         this.isHorizontalPosition = isHorizontalPosition;
+        setStern(this);
+    }
+
+    private void setStern(Ship ship) {
+        if (isHorizontalPosition) {
+            ship.sternX = ship.positionX + ship.sizeOfShip;
+            ship.sternY = ship.positionY;
+        } else {
+            ship.sternY = ship.positionY + ship.sizeOfShip;
+            ship.sternX = ship.positionX;
+        }
     }
 
     public int getSizeOfShip() {
@@ -31,14 +42,6 @@ public class Ship {
 
     public boolean isHorizontalPosition() {
         return isHorizontalPosition;
-    }
-
-    public void setSternY(int sternY) {
-        this.sternY = sternY;
-    }
-
-    public void setSternX(int sternX) {
-        this.sternX = sternX;
     }
 
     public int getSternX() {

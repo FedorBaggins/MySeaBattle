@@ -37,12 +37,5 @@ public class Field {
         return field;
     }
 
-    public int getPointY() {
-        return pointY;
-    }
-
-    public int getPointX() {
-        return pointX;
-    }
 }
 
