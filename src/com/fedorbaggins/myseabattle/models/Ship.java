@@ -24,10 +24,10 @@ public class Ship {
     @Override
     public String toString() {
         return "Ship{" +
-                "isHorizontalPosition=" + isHorizontalPosition +
-                ", sizeOfShip=" + sizeOfShip +
-                ", positionX=" + positionX +
-                ", positionY=" + positionY +
-                '}';
+                "isHor-" + isHorizontalPosition +
+                ", size" + sizeOfShip +
+                ", X=" + positionX +
+                ", Y=" + positionY +
+                '}' + "\n";
     }
 }

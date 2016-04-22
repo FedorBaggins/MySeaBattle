@@ -1,9 +1,7 @@
-package com.fedorbaggins.myseabattle.game;
+package com.fedorbaggins.myseabattle.models;
 
 
-import com.fedorbaggins.myseabattle.models.Cell;
-import com.fedorbaggins.myseabattle.models.Field;
-import com.fedorbaggins.myseabattle.models.Ship;
+import java.util.Random;
 
 public class Utils {
     static public void setAreaShip(Ship ship, Cell[][] field) {
@@ -108,20 +106,62 @@ public class Utils {
 
     }
 
-    public static boolean isValidPlace(int x, int y, boolean posHor, int sizeOfShip, Cell[][] field) {
-        if (field[x][y] != Cell.EMPTY) return false;
-        if (posHor) {
-            if (x + sizeOfShip > Field.getSizeOfField()) return false;
-            for (int i = x; i < x + sizeOfShip; i++) {
-                if (field[i][y] != Cell.EMPTY) return false;
+    static boolean isValidPlace(Field mainField, int sizeOfShip) {
+        if (mainField.getField()[mainField.pointX][mainField.pointY] != Cell.EMPTY) return false;
+        if (mainField.posHor) {
+            if (mainField.pointX + sizeOfShip > Field.SIZE_OF_FIELD) return false;
+            for (int i = mainField.pointX; i < mainField.pointX + sizeOfShip; i++) {
+                if (mainField.getField()[i][mainField.pointY] != Cell.EMPTY) return false;
             }
         }
-        if (!posHor) {
-            if (y + sizeOfShip > Field.getSizeOfField()) return false;
-            for (int i = y; i < y + sizeOfShip; i++) {
-                if (field[x][i] != Cell.EMPTY) return false;
+        if (!mainField.posHor) {
+            if (mainField.pointY + sizeOfShip > Field.SIZE_OF_FIELD) return false;
+            for (int i = mainField.pointY; i < mainField.pointY + sizeOfShip; i++) {
+                if (mainField.getField()[mainField.pointX][i] != Cell.EMPTY) return false;
             }
         }
         return true;
+    }
+
+    static void fillEmptyField(Cell[][] field) {
+        for (int i = 0; i < Field.SIZE_OF_FIELD; i++) {
+            for (int j = 0; j < Field.SIZE_OF_FIELD; j++) {
+                field[i][j] = Cell.EMPTY;
+            }
+        }
+    }
+
+    static void newShip(int i, Field mainField) {
+        Ship currentShip = new Ship(i, mainField.pointX, mainField.pointY, mainField.posHor);
+        Utils.setShips(currentShip, mainField.getField());
+        mainField.getSetOfShips().add(currentShip);
+    }
+
+    public static void createShipsAndAllArea(Field mainField) {
+        Ship currentShip;
+        Random r = new Random();
+        for (int i = 1; i <= Field.MAX_SIZE_OF_SHIP + 1; i++) {
+            for (int y = i + 1; y <= Field.MAX_SIZE_OF_SHIP + 1; y++) {
+
+                mainField.pointX = r.nextInt(10);
+                mainField.pointY = r.nextInt(10);
+                mainField.posHor = r.nextBoolean();
+                if (Utils.isValidPlace(mainField, i)) {
+                    Utils.newShip(i, mainField);
+
+                } else if (!Utils.isValidPlace(mainField, i)) {
+                    do {
+                        mainField.pointX = r.nextInt(10);
+                        mainField.pointY = r.nextInt(10);
+                        mainField.posHor = r.nextBoolean();
+                    }
+                    while (!Utils.isValidPlace(mainField, i));
+                    currentShip = new Ship(i, mainField.pointX, mainField.pointY, mainField.posHor);
+                    Utils.setShips(currentShip, mainField.getField());
+                    mainField.setOfShips.add(currentShip);
+                }
+
+            }
+        }
     }
 }
