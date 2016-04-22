@@ -1,29 +1,33 @@
 package com.fedorbaggins.myseabattle.game;
 
 
+import com.fedorbaggins.myseabattle.models.Cell;
+import com.fedorbaggins.myseabattle.models.Field;
+import com.fedorbaggins.myseabattle.models.Ship;
+
 public class Utils {
-    static public void setAreaShip(Ship ship, int[][] field) {
+    static public void setAreaShip(Ship ship, Cell[][] field) {
         int currentPosX;
         int currentPosY;
 
         if (ship.sizeOfShip == 1) {
-            setSingleShip(ship, field);
+            setSingleShipArea(ship, field);
         }
         if (ship.sizeOfShip > 1) {
-            setMultiShip(ship, field);
+            setMultiShipArea(ship, field);
         }
     }
 
-    private static void setMultiShip(Ship ship, int[][] field) {
-        if (ship.isHorizontalPosition == true) {
+    private static void setMultiShipArea(Ship ship, Cell[][] field) {
+        if (ship.isHorizontalPosition) {
             for (int i = -1; i <= ship.sizeOfShip; i++) {
                 for (int j = -1; j <= 1; j++) {
                     if (j == 0 && i >= 0 && i < ship.sizeOfShip) {
                         //
                     } else {
                         try {
-                            if (field[ship.positionX + i][ship.positionY + j] == 0)
-                                field[ship.positionX + i][ship.positionY + j] = -ship.sizeOfShip;
+                            if (field[ship.positionX + i][ship.positionY + j] == Cell.EMPTY)
+                                field[ship.positionX + i][ship.positionY + j] = Cell.AREA;
                         } catch (Exception e) {
 
                         }
@@ -33,7 +37,7 @@ public class Utils {
             }
         }
 
-        if (ship.isHorizontalPosition == false) {
+        if (!ship.isHorizontalPosition) {
             for (int i = -1; i <= ship.sizeOfShip; i++) {
                 for (int j = -1; j <= 1; j++) {
                     if (j == 0 && i >= 0 && i < ship.sizeOfShip) {
@@ -41,8 +45,8 @@ public class Utils {
 //
                     } else {
                         try {
-                            if (field[ship.positionX + j][ship.positionY + i] == 0)
-                                field[ship.positionX + j][ship.positionY + i] = -ship.sizeOfShip;
+                            if (field[ship.positionX + j][ship.positionY + i] == Cell.EMPTY)
+                                field[ship.positionX + j][ship.positionY + i] = Cell.AREA;
                         } catch (Exception e) {
 
                         }
@@ -53,13 +57,13 @@ public class Utils {
         }
     }
 
-    private static void setSingleShip(Ship ship, int[][] field) {
+    private static void setSingleShipArea(Ship ship, Cell[][] field) {
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 if (i != 0 || j != 0) {
                     try {
-                        if (field[ship.positionX + i][ship.positionY + j] == 0)
-                            field[ship.positionX + i][ship.positionY + j] = -1;
+                        if (field[ship.positionX + i][ship.positionY + j] == Cell.EMPTY)
+                            field[ship.positionX + i][ship.positionY + j] = Cell.AREA;
                     } catch (Exception e) {
 
                     }
@@ -70,15 +74,15 @@ public class Utils {
         }
     }
 
-    protected static void setShips(Ship ship, int[][] field) {
-        field[ship.positionX][ship.positionY] = 1;
+    public static void setShips(Ship ship, Cell[][] field) {
+        field[ship.positionX][ship.positionY] = Cell.SHIP;
 
-        if (ship.isHorizontalPosition == true) {
+        if (ship.isHorizontalPosition) {
             for (int i = 0; i < ship.sizeOfShip; i++) {
-                if (ship.sizeOfShip == 1) field[ship.positionX + i][ship.positionY] = 21;
-                if (ship.sizeOfShip == 2) field[ship.positionX + i][ship.positionY] = 22;
-                if (ship.sizeOfShip == 3) field[ship.positionX + i][ship.positionY] = 23;
-                if (ship.sizeOfShip == 4) field[ship.positionX + i][ship.positionY] = 24;
+                if (ship.sizeOfShip == 1) field[ship.positionX + i][ship.positionY] = Cell.SHIP;
+                if (ship.sizeOfShip == 2) field[ship.positionX + i][ship.positionY] = Cell.SHIP;
+                if (ship.sizeOfShip == 3) field[ship.positionX + i][ship.positionY] = Cell.SHIP;
+                if (ship.sizeOfShip == 4) field[ship.positionX + i][ship.positionY] = Cell.SHIP;
                 if (i == ship.sizeOfShip) {
                     ship.sternX = ship.positionX + i;
                     ship.sternY = ship.positionY;
@@ -86,12 +90,12 @@ public class Utils {
                 }
             }
             Utils.setAreaShip(ship, field);
-        } else if (ship.isHorizontalPosition == false) {
+        } else if (!ship.isHorizontalPosition) {
             for (int i = 0; i < ship.sizeOfShip; i++) {
-                if (ship.sizeOfShip == 1) field[ship.positionX][ship.positionY + i] = 11;
-                if (ship.sizeOfShip == 2) field[ship.positionX][ship.positionY + i] = 12;
-                if (ship.sizeOfShip == 3) field[ship.positionX][ship.positionY + i] = 13;
-                if (ship.sizeOfShip == 4) field[ship.positionX][ship.positionY + i] = 14;
+                if (ship.sizeOfShip == 1) field[ship.positionX][ship.positionY + i] = Cell.SHIP;
+                if (ship.sizeOfShip == 2) field[ship.positionX][ship.positionY + i] = Cell.SHIP;
+                if (ship.sizeOfShip == 3) field[ship.positionX][ship.positionY + i] = Cell.SHIP;
+                if (ship.sizeOfShip == 4) field[ship.positionX][ship.positionY + i] = Cell.SHIP;
                 if (i == ship.sizeOfShip) {
                     ship.sternY = ship.positionY + i;
                     ship.sternX = ship.positionX;
@@ -104,18 +108,18 @@ public class Utils {
 
     }
 
-    protected static boolean isValidPlace(int x, int y, boolean posHor, int sizeOfShip, int[][] field) {
-        if (field[x][y] != 0) return false;
-        if (posHor == true) {
-            if (x + sizeOfShip > Field.SIZE_OF_FIELD) return false;
+    public static boolean isValidPlace(int x, int y, boolean posHor, int sizeOfShip, Cell[][] field) {
+        if (field[x][y] != Cell.EMPTY) return false;
+        if (posHor) {
+            if (x + sizeOfShip > Field.getSizeOfField()) return false;
             for (int i = x; i < x + sizeOfShip; i++) {
-                if (field[i][y] != 0) return false;
+                if (field[i][y] != Cell.EMPTY) return false;
             }
         }
-        if (posHor == false) {
-            if (y + sizeOfShip > Field.SIZE_OF_FIELD) return false;
+        if (!posHor) {
+            if (y + sizeOfShip > Field.getSizeOfField()) return false;
             for (int i = y; i < y + sizeOfShip; i++) {
-                if (field[x][i] != 0) return false;
+                if (field[x][i] != Cell.EMPTY) return false;
             }
         }
         return true;
