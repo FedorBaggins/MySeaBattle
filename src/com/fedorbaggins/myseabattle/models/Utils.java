@@ -8,24 +8,24 @@ public class Utils {
         int currentPosX;
         int currentPosY;
 
-        if (ship.sizeOfShip == 1) {
+        if (ship.getSizeOfShip() == 1) {
             setSingleShipArea(ship, field);
         }
-        if (ship.sizeOfShip > 1) {
+        if (ship.getSizeOfShip() > 1) {
             setMultiShipArea(ship, field);
         }
     }
 
     private static void setMultiShipArea(Ship ship, Cell[][] field) {
-        if (ship.isHorizontalPosition) {
-            for (int i = -1; i <= ship.sizeOfShip; i++) {
+        if (ship.isHorizontalPosition()) {
+            for (int i = -1; i <= ship.getSizeOfShip(); i++) {
                 for (int j = -1; j <= 1; j++) {
-                    if (j == 0 && i >= 0 && i < ship.sizeOfShip) {
+                    if (j == 0 && i >= 0 && i < ship.getSizeOfShip()) {
                         //
                     } else {
                         try {
-                            if (field[ship.positionX + i][ship.positionY + j] == Cell.EMPTY)
-                                field[ship.positionX + i][ship.positionY + j] = Cell.AREA;
+                            if (field[ship.getPositionX() + i][ship.getPositionY() + j] == Cell.EMPTY)
+                                field[ship.getPositionX() + i][ship.getPositionY() + j] = Cell.AREA;
                         } catch (Exception e) {
 
                         }
@@ -35,16 +35,16 @@ public class Utils {
             }
         }
 
-        if (!ship.isHorizontalPosition) {
-            for (int i = -1; i <= ship.sizeOfShip; i++) {
+        if (!ship.isHorizontalPosition()) {
+            for (int i = -1; i <= ship.getSizeOfShip(); i++) {
                 for (int j = -1; j <= 1; j++) {
-                    if (j == 0 && i >= 0 && i < ship.sizeOfShip) {
+                    if (j == 0 && i >= 0 && i < ship.getSizeOfShip()) {
 
 //
                     } else {
                         try {
-                            if (field[ship.positionX + j][ship.positionY + i] == Cell.EMPTY)
-                                field[ship.positionX + j][ship.positionY + i] = Cell.AREA;
+                            if (field[ship.getPositionX() + j][ship.getPositionY() + i] == Cell.EMPTY)
+                                field[ship.getPositionX() + j][ship.getPositionY() + i] = Cell.AREA;
                         } catch (Exception e) {
 
                         }
@@ -60,8 +60,8 @@ public class Utils {
             for (int j = -1; j <= 1; j++) {
                 if (i != 0 || j != 0) {
                     try {
-                        if (field[ship.positionX + i][ship.positionY + j] == Cell.EMPTY)
-                            field[ship.positionX + i][ship.positionY + j] = Cell.AREA;
+                        if (field[ship.getPositionX() + i][ship.getPositionY() + j] == Cell.EMPTY)
+                            field[ship.getPositionX() + i][ship.getPositionY() + j] = Cell.AREA;
                     } catch (Exception e) {
 
                     }
@@ -73,30 +73,30 @@ public class Utils {
     }
 
     public static void setShips(Ship ship, Cell[][] field) {
-        field[ship.positionX][ship.positionY] = Cell.SHIP;
+        field[ship.getPositionX()][ship.getPositionY()] = Cell.SHIP;
 
-        if (ship.isHorizontalPosition) {
-            for (int i = 0; i < ship.sizeOfShip; i++) {
-                if (ship.sizeOfShip == 1) field[ship.positionX + i][ship.positionY] = Cell.SHIP;
-                if (ship.sizeOfShip == 2) field[ship.positionX + i][ship.positionY] = Cell.SHIP;
-                if (ship.sizeOfShip == 3) field[ship.positionX + i][ship.positionY] = Cell.SHIP;
-                if (ship.sizeOfShip == 4) field[ship.positionX + i][ship.positionY] = Cell.SHIP;
-                if (i == ship.sizeOfShip) {
-                    ship.sternX = ship.positionX + i;
-                    ship.sternY = ship.positionY;
+        if (ship.isHorizontalPosition()) {
+            for (int i = 0; i < ship.getSizeOfShip(); i++) {
+                if (ship.getSizeOfShip() == 1) field[ship.getPositionX() + i][ship.getPositionY()] = Cell.SHIP;
+                if (ship.getSizeOfShip() == 2) field[ship.getPositionX() + i][ship.getPositionY()] = Cell.SHIP;
+                if (ship.getSizeOfShip() == 3) field[ship.getPositionX() + i][ship.getPositionY()] = Cell.SHIP;
+                if (ship.getSizeOfShip() == 4) field[ship.getPositionX() + i][ship.getPositionY()] = Cell.SHIP;
+                if (i == ship.getSizeOfShip()) {
+                    ship.setSternX(ship.getPositionX() + i);
+                    ship.setSternX(ship.getPositionY());
 
                 }
             }
             Utils.setAreaShip(ship, field);
-        } else if (!ship.isHorizontalPosition) {
-            for (int i = 0; i < ship.sizeOfShip; i++) {
-                if (ship.sizeOfShip == 1) field[ship.positionX][ship.positionY + i] = Cell.SHIP;
-                if (ship.sizeOfShip == 2) field[ship.positionX][ship.positionY + i] = Cell.SHIP;
-                if (ship.sizeOfShip == 3) field[ship.positionX][ship.positionY + i] = Cell.SHIP;
-                if (ship.sizeOfShip == 4) field[ship.positionX][ship.positionY + i] = Cell.SHIP;
-                if (i == ship.sizeOfShip) {
-                    ship.sternY = ship.positionY + i;
-                    ship.sternX = ship.positionX;
+        } else if (!ship.isHorizontalPosition()) {
+            for (int i = 0; i < ship.getSizeOfShip(); i++) {
+                if (ship.getSizeOfShip() == 1) field[ship.getPositionX()][ship.getPositionY() + i] = Cell.SHIP;
+                if (ship.getSizeOfShip() == 2) field[ship.getPositionX()][ship.getPositionY() + i] = Cell.SHIP;
+                if (ship.getSizeOfShip() == 3) field[ship.getPositionX()][ship.getPositionY() + i] = Cell.SHIP;
+                if (ship.getSizeOfShip() == 4) field[ship.getPositionX()][ship.getPositionY() + i] = Cell.SHIP;
+                if (i == ship.getSizeOfShip()) {
+                    ship.setSternY(ship.getPositionY() + i);
+                    ship.setSternX(ship.getPositionX());
 
                 }
             }
@@ -131,8 +131,8 @@ public class Utils {
         }
     }
 
-    static void newShip(int i, Field mainField) {
-        Ship currentShip = new Ship(i, mainField.pointX, mainField.pointY, mainField.posHor);
+    static void newShip(int sizeOfShip, Field mainField) {
+        Ship currentShip = new Ship(sizeOfShip, mainField.pointX, mainField.pointY, mainField.posHor);
         Utils.setShips(currentShip, mainField.getField());
         mainField.getSetOfShips().add(currentShip);
     }
